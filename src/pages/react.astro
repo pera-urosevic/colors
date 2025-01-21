@@ -1,0 +1,10 @@
+---
+import Menu from '@/components/Menu.astro'
+import Layout from '@/layouts/Layout.astro'
+import Colors from '@react/Colors'
+---
+
+<Layout>
+  <Menu active="react" />
+  <Colors client:only="react" />
+</Layout>

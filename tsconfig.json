@@ -1,0 +1,32 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "dist"
+  ],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": [
+        "./src/colors/lib/*"
+      ],
+      "@react/*": [
+        "./src/colors/react/*"
+      ],
+      "@svelte/*": [
+        "./src/colors/svelte/*"
+      ],
+      "@vue/*": [
+        "./src/colors/vue/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}

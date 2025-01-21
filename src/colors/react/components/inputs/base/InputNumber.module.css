@@ -1,0 +1,6 @@
+.inputNumber {
+  text-align: right;
+  font-size: 18px;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

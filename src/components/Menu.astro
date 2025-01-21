@@ -1,0 +1,24 @@
+---
+const { active } = Astro.props
+
+const links = [
+  { name: 'React', href: 'react' },
+  { name: 'Svelte', href: 'svelte' },
+  { name: 'Vue', href: 'vue' },
+]
+---
+
+<nav>
+  {links.map((link) => <a href={'/colors/' + link.href}>{active === link.href ? `[${link.name}]` : link.name}</a>)}
+</nav>
+
+<style scoped>
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    a {
+      font-size: 18px;
+    }
+  }
+</style>
