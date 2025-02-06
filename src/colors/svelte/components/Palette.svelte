@@ -1,7 +1,10 @@
 <script lang="ts">
   import { DragDropSort } from '@lib/sort'
+  import Loading from '@svelte/components/Loading.svelte'
   import { bgColorHSL } from '@svelte/helpers/style'
   import { palette, setSelected, swapPaletteColors } from '@svelte/store'
+  import { restorePalette } from '@svelte/store'
+  import { onMount } from 'svelte'
 
   const dds = new DragDropSort()
 
@@ -13,23 +16,29 @@
     if (!colorNameDrag || !colorNameDrop) return
     swapPaletteColors(colorNameDrag, colorNameDrop)
   }
+
+  onMount(restorePalette)
 </script>
 
-<div class="palette">
-  {#each $palette as color (color.name)}
-    <div
-      class="color"
-      draggable="true"
-      title={color.name}
-      style={bgColorHSL(color.hsl)}
-      onclick={() => setSelected(color)}
-      ondragstart={(e) => dds.dragStart(e)}
-      ondragover={(e) => dds.dragOver(e)}
-      ondragend={onSort}
-      role="button"
-    ></div>
-  {/each}
-</div>
+{#if $palette}
+  <div class="palette">
+    {#each $palette as color (color.name)}
+      <div
+        class="color"
+        draggable="true"
+        title={color.name}
+        style={bgColorHSL(color.hsl)}
+        onclick={() => setSelected(color)}
+        ondragstart={(e) => dds.dragStart(e)}
+        ondragover={(e) => dds.dragOver(e)}
+        ondragend={onSort}
+        role="button"
+      ></div>
+    {/each}
+  </div>
+{:else}
+  <Loading />
+{/if}
 
 <style scoped>
   .palette {

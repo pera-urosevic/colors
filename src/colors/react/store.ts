@@ -6,14 +6,14 @@ import { load, save } from '@/colors/lib/storage'
 
 type ColorsStore = {
   hsl: HSL
-  palette: Color[]
+  palette: Color[] | undefined
   selected: Color | null
   fullScreen: boolean
 }
 
 export const useColorsStore = create<ColorsStore>((set) => ({
   hsl: randomHSL(),
-  palette: load(),
+  palette: undefined,
   selected: null,
   fullScreen: false,
 }))
@@ -29,6 +29,13 @@ export const setHSL = (newHSL: HSL) => {
 
 // palette
 
+export const restorePalette = async () => {
+  const newPalette = await load()
+  useColorsStore.setState({
+    palette: newPalette
+  })
+}
+
 export const setPalette = (newPalette: Color[]) => {
   useColorsStore.setState({
     palette: newPalette
@@ -38,6 +45,7 @@ export const setPalette = (newPalette: Color[]) => {
 
 export const swapPaletteColors = (colorName1: string, colorName2: string) => {
   const paletteOld = useColorsStore.getState().palette
+  if (!paletteOld) return
   const colorIndex1 = paletteOld.findIndex((c) => c.name === colorName1)
   const color1 = paletteOld[colorIndex1]
   const colorIndex2 = paletteOld.findIndex((c) => c.name === colorName2)

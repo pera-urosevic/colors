@@ -2,18 +2,18 @@
   import { palette, selected, hsl, setPalette, unsetSelected } from '@svelte/store'
   import type { Color } from '@lib/types'
 
-  const add = (color: Color) => {
+  const add = async (color: Color) => {
     if ($palette.find((c) => c.name === color.name)) {
       alert('Color name already exists')
       return
     }
     const paletteNew = [...$palette, color]
-    setPalette(paletteNew)
+    await setPalette(paletteNew)
   }
 
-  const remove = (color: Color) => {
+  const remove = async (color: Color) => {
     const paletteNew = $palette.filter((c) => c !== color)
-    setPalette(paletteNew)
+    await setPalette(paletteNew)
   }
 
   const onSave = async () => {

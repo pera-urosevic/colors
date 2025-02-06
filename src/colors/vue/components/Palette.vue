@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { bgColorHSL } from '@vue/helpers/style'
-import { palette, setSelected, swapPaletteColors } from '@vue/store'
+import { palette, restorePalette, setSelected, swapPaletteColors } from '@vue/store'
 import { DragDropSort } from '@lib/sort'
+import { onMounted } from 'vue'
+import Loading from '@vue/components/Loading.vue'
 
 const dds = new DragDropSort()
 
@@ -13,10 +15,13 @@ const onSort = () => {
   if (!colorNameDrag || !colorNameDrop) return
   swapPaletteColors(colorNameDrag, colorNameDrop)
 }
+
+onMounted(restorePalette)
 </script>
 
 <template>
-  <div class="palette">
+
+  <div v-if="palette" class="palette">
     <div
       class="color"
       draggable="true"
@@ -30,6 +35,7 @@ const onSort = () => {
       @dragend="onSort"
     ></div>
   </div>
+  <Loading v-else />
 </template>
 
 <style scoped>

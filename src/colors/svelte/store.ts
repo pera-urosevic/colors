@@ -5,7 +5,7 @@ import type { HSL } from 'color-convert/conversions'
 import { get, writable } from 'svelte/store'
 
 export let hsl = writable<HSL>(randomHSL())
-export let palette = writable<Color[]>(load())
+export let palette = writable<Color[] | undefined>()
 export let selected = writable<Color | null>(null)
 export let fullScreen = writable<boolean>(false)
 
@@ -18,13 +18,19 @@ export const setHSL = (newHSL: HSL) => {
 
 // palette
 
-export const setPalette = (newPalette: Color[]) => {
+export const restorePalette = async () => {
+  const newPalette = await load()
   palette.set(newPalette)
-  save(newPalette)
+}
+
+export const setPalette = async (newPalette: Color[]) => {
+  palette.set(newPalette)
+  await save(newPalette)
 }
 
 export const swapPaletteColors = (colorName1: string, colorName2: string) => {
   const paletteOld = get(palette)
+  if (!paletteOld) return
   const colorIndex1 = paletteOld.findIndex((c) => c.name === colorName1)
   const color1 = paletteOld[colorIndex1]
   const colorIndex2 = paletteOld.findIndex((c) => c.name === colorName2)

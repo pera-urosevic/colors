@@ -5,7 +5,7 @@ import type { HSL } from 'color-convert/conversions'
 import { ref } from 'vue'
 
 export const hsl = ref<HSL>(randomHSL())
-export const palette = ref<Color[]>(load())
+export const palette = ref<Color[] | undefined>()
 export const colorSelected = ref<Color | null>(null)
 export const fullScreen = ref<boolean>(false)
 
@@ -18,12 +18,18 @@ export const setHSL = (newHSL: HSL) => {
 
 // palette
 
+export const restorePalette = async () => {
+  const newPalette = await load()
+  palette.value = newPalette
+}
+
 export const setPalette = (newPalette: Color[]) => {
   palette.value = newPalette
   save(newPalette)
 }
 
 export const swapPaletteColors = (colorName1: string, colorName2: string) => {
+  if (!palette.value) return
   const colorIndex1 = palette.value.findIndex((c) => c.name === colorName1)
   const color1 = palette.value[colorIndex1]
   const colorIndex2 = palette.value.findIndex((c) => c.name === colorName2)

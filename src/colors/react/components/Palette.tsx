@@ -1,8 +1,11 @@
 import { DragDropSort } from '@lib/sort'
 import { bgColorHSL } from '@react/helpers/style'
 import styles from '@react/components/Palette.module.css'
-import { setSelected, swapPaletteColors, useColorsStore } from '@react/store'
+import { restorePalette, setSelected, swapPaletteColors, useColorsStore } from '@react/store'
 import { useRef } from 'react'
+import Loading from '@react/components/Loading'
+
+let init = false
 
 const Palette = () => {
   const palette = useColorsStore((state) => state.palette)
@@ -25,6 +28,10 @@ const Palette = () => {
     if (!colorNameDrag || !colorNameDrop) return
     swapPaletteColors(colorNameDrag, colorNameDrop)
   }
+
+  if (!init) restorePalette()
+
+  if (!palette) return <Loading />
 
   return (
     <div className={styles.palette}>

@@ -1,0 +1,49 @@
+<script setup lang="ts">
+</script>
+
+<template>
+  <div class="container">
+    <div class="loader"></div>
+  </div>
+</template>
+
+<style>
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .loader {
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-top: -30px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    transform-origin: 50% 116.5%;
+    animation: l17 2s infinite linear;
+  }
+  .loader:before {
+    content: '';
+    min-width: 233%;
+    height: 233%;
+    background:
+      radial-gradient(farthest-side, hsl(0, 50%, 50%) 90%, #0000) top,
+      radial-gradient(farthest-side, hsl(90, 50%, 50%) 90%, #0000) left,
+      radial-gradient(farthest-side, hsl(180, 50%, 50%) 90%, #0000) bottom,
+      radial-gradient(farthest-side, hsl(270, 50%, 50%) 90%, #0000) right;
+    background-size: 43% 43%;
+    background-repeat: no-repeat;
+    animation: inherit;
+    animation-direction: reverse;
+  }
+  @keyframes l17 {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
