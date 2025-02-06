@@ -10,5 +10,5 @@ import vue from '@astrojs/vue'
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), svelte(), vue()],
-  base: '/colors',
+  base: '/colors-astro',
 })

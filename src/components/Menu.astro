@@ -9,7 +9,11 @@ const links = [
 ---
 
 <nav>
-  {links.map((link) => <a href={'/colors/' + link.href}>{active === link.href ? `[${link.name}]` : link.name}</a>)}
+  {
+    links.map((link) => (
+      <a href={'/colors-astro/' + link.href}>{active === link.href ? `[${link.name}]` : link.name}</a>
+    ))
+  }
 </nav>
 
 <style scoped>
